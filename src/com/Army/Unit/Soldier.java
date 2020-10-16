@@ -1,6 +1,5 @@
 package Army.Unit;
 
-import Army.Exceptions.UnitIsDeadException;
 import Army.Weapon.SoldierWeapon;
 
 public class Soldier extends Unit {

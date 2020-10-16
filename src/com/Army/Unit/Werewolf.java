@@ -1,7 +1,7 @@
 package Army.Unit;
 
+import Army.Mediator.InfectMediator;
 import Army.State.State;
-import Army.Unit.Unit;
 import Army.State.WolfState;
 import Army.Weapon.WerewolfWeapon;
 
@@ -24,4 +24,8 @@ public class Werewolf extends Unit {
         }
     }
 
+    public void infect(Unit other) {
+        this.mediator = new InfectMediator(this, other);
+        this.mediator.notify(other, "Werewolf Infect");
+    }
 }

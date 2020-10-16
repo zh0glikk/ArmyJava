@@ -1,7 +1,6 @@
 package Army.Unit;
 
 import Army.Exceptions.UnitIsDeadException;
-import Army.Unit.Unit;
 import Army.Weapon.BerserkerWeapon;
 
 

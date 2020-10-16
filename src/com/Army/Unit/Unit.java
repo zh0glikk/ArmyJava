@@ -1,6 +1,7 @@
 package Army.Unit;
 
 import Army.Exceptions.UnitIsDeadException;
+import Army.Mediator.Mediator;
 import Army.State.State;
 import Army.Weapon.Weapon;
 import Army.Race.Race;
@@ -9,10 +10,12 @@ public abstract class Unit {
     protected State state;
     protected Weapon weapon;
     protected Race race;
+    protected Mediator mediator;
 
     public Unit(String name, int hitPointsLimit, int damage) {
         this.state = new State(name, hitPointsLimit, damage);
-        race = Race.Human;
+        this.race = Race.Human;
+        this.mediator = null;
     }
 
     public int getHitPoints() {
@@ -30,6 +33,8 @@ public abstract class Unit {
     public String getName() {
         return this.state.getName();
     }
+
+    public Race getRace() { return  this.race; }
 
     public void takeDamage(int dmg) throws UnitIsDeadException {
         this.state.takeDamage(dmg);
@@ -55,7 +60,11 @@ public abstract class Unit {
         this.race = newRace;
     }
 
+    public void setWeapon(Weapon newWeapon) { this.weapon = newWeapon; }
+
     public void setState(State newState) { this.state = newState; }
+
+    public void setMediator(Mediator mediator) { this.mediator = mediator; }
 
 
 }
