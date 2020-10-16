@@ -14,11 +14,11 @@ public abstract class Weapon {
         other.takeDamage(this.owner.getDamage());
 
         if ( other.getHitPoints() > 0 ) {
-            counterAttack(other);
+            other.counterAttack(this.owner);
         }
     }
 
     public void counterAttack(Unit other) throws UnitIsDeadException {
-        this.owner.takeDamage(other.getDamage() / 2);
+        other.takeDamage(this.owner.getDamage()/2);
     }
 }

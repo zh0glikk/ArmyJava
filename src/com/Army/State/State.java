@@ -55,4 +55,12 @@ public class State {
             this.hitPoints = 0;
         }
     }
+
+    public void addHitPoints(int hp) {
+        this.hitPoints += hp;
+
+        if (this.hitPoints > this.hitPointsLimit) {
+            this.hitPoints = this.hitPointsLimit;
+        }
+    }
 }

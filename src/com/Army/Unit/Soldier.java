@@ -8,9 +8,4 @@ public class Soldier extends Unit {
         super(name, hitPointsLimit, damage);
         this.weapon = new SoldierWeapon(this);
     }
-
-    @Override
-    public void takeMagicDamage(int dmg) throws UnitIsDeadException {
-        super.takeMagicDamage(0);
-    }
 }

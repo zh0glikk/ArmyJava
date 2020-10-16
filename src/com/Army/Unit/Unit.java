@@ -39,6 +39,10 @@ public abstract class Unit {
         this.state.takeMagicDamage(dmg);
     }
 
+    public void addHitPoints(int hp) {
+        this.state.addHitPoints(hp);
+    }
+
     public void attack(Unit other) throws UnitIsDeadException {
         this.weapon.attack(other);
     }
@@ -47,8 +51,11 @@ public abstract class Unit {
         this.weapon.counterAttack(other);
     }
 
-    public void changeRace(Race newRace) {
+    public void setRace(Race newRace) {
         this.race = newRace;
     }
+
+    public void setState(State newState) { this.state = newState; }
+
 
 }
