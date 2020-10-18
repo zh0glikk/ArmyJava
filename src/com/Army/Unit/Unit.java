@@ -44,6 +44,10 @@ public abstract class Unit {
         this.state.takeMagicDamage(dmg);
     }
 
+//    public void takeMagicDamage(int dmg, double multiplier) throws UnitIsDeadException {
+//        this.takeMagicDamage((int) (dmg * multiplier));
+//    }
+
     public void addHitPoints(int hp) {
         this.state.addHitPoints(hp);
     }

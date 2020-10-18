@@ -1,5 +1,6 @@
 package Army.Unit;
 
+import Army.Exceptions.CantBeInfected;
 import Army.Mediator.InfectMediator;
 import Army.State.State;
 import Army.State.WolfState;
@@ -24,7 +25,7 @@ public class Werewolf extends Unit {
         }
     }
 
-    public void infect(Unit other) {
+    public void infect(Unit other) throws CantBeInfected {
         this.mediator = new InfectMediator(this, other);
         this.mediator.notify(other, "Werewolf Infect");
     }

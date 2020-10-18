@@ -9,7 +9,7 @@ import Army.Unit.Berserker;
 
 public class BerserkerTest {
     @Test
-    public void mgicImmuneCheck() throws UnitIsDeadException {
+    public void magicImmuneCheck() throws UnitIsDeadException {
         Berserker berserker = new Berserker("Berserker", 100, 10);
         berserker.takeMagicDamage(100);
 
