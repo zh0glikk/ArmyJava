@@ -1,5 +1,6 @@
 package Army.Weapon;
 
+import Army.Exceptions.DeadAfterAttackException;
 import Army.Exceptions.UnitIsDeadException;
 import Army.Unit.Unit;
 
@@ -10,7 +11,7 @@ public abstract class Weapon {
         this.owner = owner;
     }
 
-    public void attack(Unit other) throws UnitIsDeadException {
+    public void attack(Unit other) throws UnitIsDeadException, DeadAfterAttackException {
         other.takeDamage(this.owner.getDamage());
 
         if ( other.getHitPoints() > 0 ) {
@@ -18,7 +19,7 @@ public abstract class Weapon {
         }
     }
 
-    public void counterAttack(Unit other) throws UnitIsDeadException {
+    public void counterAttack(Unit other) throws UnitIsDeadException, DeadAfterAttackException {
         other.takeDamage(this.owner.getDamage()/2);
     }
 }

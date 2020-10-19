@@ -1,5 +1,6 @@
 package Army.SpellCaster;
 
+import Army.Exceptions.DeadAfterAttackException;
 import Army.Exceptions.LowManaException;
 import Army.Exceptions.NotEnoughManaException;
 import Army.Exceptions.UnitIsDeadException;
@@ -57,22 +58,32 @@ public abstract class SpellCaster extends Unit {
         return this.spell.getManaCost();
     }
 
-    public void cast(Unit other) throws UnitIsDeadException, LowManaException, NotEnoughManaException {
+    public void cast(Unit other) throws UnitIsDeadException, LowManaException, NotEnoughManaException, DeadAfterAttackException {
         ensureCanCast();
+        ensureIsAlive();
 
         if ( this.getMana() >= this.getManaCost()) {
-            this.spell.cast(other);
+            try {
+                this.spell.cast(other);
+            } catch (DeadAfterAttackException e) {
+                other.observables.sendMessage();
+            }
             this.setMana(this.getMana() - this.getManaCost());
         } else {
             throw new NotEnoughManaException();
         }
     }
 
-    public void cast(Unit other, double multiplier) throws UnitIsDeadException, LowManaException, NotEnoughManaException {
+    public void cast(Unit other, double multiplier) throws UnitIsDeadException, LowManaException, NotEnoughManaException, DeadAfterAttackException {
         ensureCanCast();
+        ensureIsAlive();
 
         if ( this.getMana() >= this.getManaCost()) {
-            this.spell.cast(other, multiplier);
+            try {
+                this.spell.cast(other, multiplier);
+            } catch (DeadAfterAttackException e) {
+                other.observables.sendMessage();
+            }
             this.setMana(this.getMana() - this.getManaCost());
         } else {
             throw new NotEnoughManaException();

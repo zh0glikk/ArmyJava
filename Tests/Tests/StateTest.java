@@ -2,6 +2,7 @@ package Tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import Army.Exceptions.DeadAfterAttackException;
 import Army.Exceptions.UnitIsDeadException;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +21,7 @@ public class StateTest {
     }
 
     @Test
-    public void takeDamage() throws UnitIsDeadException {
+    public void takeDamage() throws UnitIsDeadException, DeadAfterAttackException {
         State st = new State("State", 100, 10);
 
         st.takeDamage(10);
@@ -33,10 +34,20 @@ public class StateTest {
     }
 
     @Test
-    public void zeroHpCase() throws UnitIsDeadException {
+    public void zeroHpCase() throws UnitIsDeadException, DeadAfterAttackException {
         State st = new State("State", 100, 10);
-        st.takeDamage(110);
+        try {
+            st.takeDamage(110);
+        } catch (DeadAfterAttackException e) {
+            System.out.println("dead after attack");
+        }
 
         assertEquals(0, st.getHitPoints());
+
+        try {
+            st.takeDamage(110);
+        } catch (UnitIsDeadException e) {
+            System.out.println("unit is dead");
+        }
     }
 }

@@ -1,5 +1,6 @@
 package Army.Weapon;
 
+import Army.Exceptions.DeadAfterAttackException;
 import Army.Exceptions.UnitIsDeadException;
 import Army.Unit.Unit;
 
@@ -9,7 +10,7 @@ public class RogueWeapon extends Weapon{
     }
 
     @Override
-    public void attack(Unit other) throws UnitIsDeadException {
+    public void attack(Unit other) throws UnitIsDeadException, DeadAfterAttackException {
         other.takeDamage(this.owner.getDamage());
     }
 }

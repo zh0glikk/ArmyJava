@@ -1,5 +1,6 @@
 package Army.State;
 
+import Army.Exceptions.DeadAfterAttackException;
 import Army.Exceptions.UnitIsDeadException;
 import Army.State.State;
 
@@ -9,7 +10,7 @@ public class WolfState extends State {
     }
 
     @Override
-    public void takeMagicDamage(int dmg) throws UnitIsDeadException {
+    public void takeMagicDamage(int dmg) throws UnitIsDeadException, DeadAfterAttackException {
         super.takeMagicDamage(dmg*2);
     }
 }

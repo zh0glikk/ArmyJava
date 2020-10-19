@@ -1,5 +1,6 @@
 package Army.Unit;
 
+import Army.Exceptions.DeadAfterAttackException;
 import Army.Exceptions.UnitIsDeadException;
 import Army.Weapon.BerserkerWeapon;
 
@@ -11,7 +12,7 @@ public class Berserker extends Unit {
     }
 
     @Override
-    public void takeMagicDamage(int dmg) throws UnitIsDeadException {
+    public void takeMagicDamage(int dmg) throws UnitIsDeadException, DeadAfterAttackException {
         super.takeMagicDamage(0);
     }
 }

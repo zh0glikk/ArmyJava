@@ -1,5 +1,6 @@
 package Army.SpellCaster;
 
+import Army.Exceptions.DeadAfterAttackException;
 import Army.Exceptions.LowManaException;
 import Army.Exceptions.NotEnoughManaException;
 import Army.Exceptions.UnitIsDeadException;
@@ -27,7 +28,7 @@ public class Priest extends SpellCaster{
     }
 
     @Override
-    public void cast(Unit other) throws UnitIsDeadException, LowManaException, NotEnoughManaException {
+    public void cast(Unit other) throws UnitIsDeadException, LowManaException, NotEnoughManaException, DeadAfterAttackException {
         if ( other.getRace() == Race.Undead) {
             if ( this.spell.getSpellType() == 1 ) {
                 super.cast(other, 2);

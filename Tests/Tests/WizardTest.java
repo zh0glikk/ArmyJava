@@ -2,6 +2,7 @@ package Tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import Army.Exceptions.DeadAfterAttackException;
 import Army.Exceptions.LowManaException;
 import Army.Exceptions.NotEnoughManaException;
 import Army.Exceptions.UnitIsDeadException;
@@ -23,7 +24,7 @@ public class WizardTest {
     }
 
     @Test
-    public void castCheck() throws UnitIsDeadException, LowManaException, NotEnoughManaException {
+    public void castCheck() throws UnitIsDeadException, LowManaException, NotEnoughManaException, DeadAfterAttackException {
         Wizard wz = new Wizard("Wizard", 100, 10, 100, 20);
         Soldier sld = new Soldier("Soldiaer", 100, 10);
 
@@ -34,12 +35,12 @@ public class WizardTest {
     }
 
     @Test
-    public void checkNoManaException() throws UnitIsDeadException, LowManaException, NotEnoughManaException {
+    public void checkNoManaException() throws UnitIsDeadException, LowManaException, NotEnoughManaException, DeadAfterAttackException {
         Wizard wz = new Wizard("Wizard", 100, 10, 100, 20);
         Soldier sld = new Soldier("Soldiaer", 100, 10);
         Soldier sld2 = new Soldier("Soldiaer", 100, 10);
 
-        for ( int i = 0; i < 10; i++) {
+        for ( int i = 0; i < 3; i++) {
             try {
                 wz.cast(sld);
             }
@@ -48,25 +49,34 @@ public class WizardTest {
             }
         }
 
+        assertEquals(40, sld.getHitPoints());
+        assertEquals(70, wz.getMana());
+
+        wz.cast(sld);
+
+        assertEquals(20, sld.getHitPoints());
+        assertEquals(60, wz.getMana());
+
+
+        wz.cast(sld);
+
+        assertEquals(0, sld.getHitPoints());
         assertEquals(50, wz.getMana());
 
-        for ( int i = 0; i < 10; i++) {
+        for ( int i = 0; i < 5; i++) {
             try {
                 wz.cast(sld2);
-            }
-            catch (UnitIsDeadException e) {
-                System.out.println("Unit is dead");
             }
             catch (LowManaException e) {
                 System.out.println("No mana");
             }
         }
-
+//
         assertEquals(0, wz.getMana());
     }
 
     @Test
-    public void checkHealing() throws UnitIsDeadException, LowManaException, NotEnoughManaException {
+    public void checkHealing() throws UnitIsDeadException, LowManaException, NotEnoughManaException, DeadAfterAttackException {
         Wizard wz = new Wizard("Wizard", 100, 10, 100, 20);
         Soldier sld = new Soldier("Soldiaer", 100, 10);
 
@@ -82,7 +92,7 @@ public class WizardTest {
     }
 
     @Test
-    public void frostBallCheck() throws UnitIsDeadException, NotEnoughManaException, LowManaException {
+    public void frostBallCheck() throws UnitIsDeadException, NotEnoughManaException, LowManaException, DeadAfterAttackException {
         Wizard wz = new Wizard("Wizard", 100, 10, 100, 20);
         Soldier sld = new Soldier("Soldiaer", 100, 10);
 

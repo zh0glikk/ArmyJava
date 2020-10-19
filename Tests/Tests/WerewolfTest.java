@@ -3,13 +3,14 @@ package Tests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import Army.Exceptions.CantBeInfected;
+import Army.Exceptions.DeadAfterAttackException;
 import Army.Exceptions.UnitIsDeadException;
 import Army.Unit.*;
 import org.junit.jupiter.api.Test;
 
 public class WerewolfTest {
     @Test
-    public void werewolfWolfState() throws UnitIsDeadException {
+    public void werewolfWolfState() throws UnitIsDeadException, DeadAfterAttackException {
         Werewolf werewolf = new Werewolf("werewolf", 100, 10);
         werewolf.toWolf();;
 

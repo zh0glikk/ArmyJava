@@ -1,7 +1,9 @@
 package Army.Unit;
 
+import Army.Exceptions.DeadAfterAttackException;
 import Army.Exceptions.UnitIsDeadException;
 import Army.Mediator.Mediator;
+import Army.Observer.Observable;
 import Army.State.State;
 import Army.Weapon.Weapon;
 import Army.Race.Race;
@@ -12,10 +14,17 @@ public abstract class Unit {
     protected Race race;
     protected Mediator mediator;
 
+    public Observable observables;
+
+    public void ensureIsAlive() throws UnitIsDeadException {
+        this.state.ensureIsALive();
+    }
+
     public Unit(String name, int hitPointsLimit, int damage) {
         this.state = new State(name, hitPointsLimit, damage);
         this.race = Race.Human;
         this.mediator = null;
+        observables = new Observable();
     }
 
     public int getHitPoints() {
@@ -36,28 +45,34 @@ public abstract class Unit {
 
     public Race getRace() { return  this.race; }
 
-    public void takeDamage(int dmg) throws UnitIsDeadException {
+    public void takeDamage(int dmg) throws UnitIsDeadException, DeadAfterAttackException {
         this.state.takeDamage(dmg);
     }
 
-    public void takeMagicDamage(int dmg) throws UnitIsDeadException {
+    public void takeMagicDamage(int dmg) throws UnitIsDeadException, DeadAfterAttackException {
         this.state.takeMagicDamage(dmg);
     }
-
-//    public void takeMagicDamage(int dmg, double multiplier) throws UnitIsDeadException {
-//        this.takeMagicDamage((int) (dmg * multiplier));
-//    }
 
     public void addHitPoints(int hp) {
         this.state.addHitPoints(hp);
     }
 
     public void attack(Unit other) throws UnitIsDeadException {
-        this.weapon.attack(other);
+        ensureIsAlive();
+        try {
+            this.weapon.attack(other);
+        } catch (DeadAfterAttackException e) {
+            other.observables.sendMessage();
+        }
     }
 
     public void counterAttack(Unit other) throws UnitIsDeadException {
-        this.weapon.counterAttack(other);
+        ensureIsAlive();
+        try {
+            this.weapon.counterAttack(other);
+        } catch (DeadAfterAttackException e) {
+            other.observables.sendMessage();
+        }
     }
 
     public void setRace(Race newRace) {

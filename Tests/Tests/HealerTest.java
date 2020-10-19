@@ -1,5 +1,6 @@
 package Tests;
 
+import Army.Exceptions.DeadAfterAttackException;
 import Army.Exceptions.LowManaException;
 import Army.Exceptions.NotEnoughManaException;
 import Army.Exceptions.UnitIsDeadException;
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class HealerTest {
 
     @Test
-    public void healingCheck() throws UnitIsDeadException, LowManaException, NotEnoughManaException {
+    public void healingCheck() throws UnitIsDeadException, LowManaException, NotEnoughManaException, DeadAfterAttackException {
         Soldier sld = new Soldier("Soldiaer", 100, 10);
         Healer hl = new Healer("Healer", 100, 10, 100, 20);
 
@@ -33,7 +34,7 @@ public class HealerTest {
     }
 
     @Test
-    public void checkGreatHeal() throws UnitIsDeadException, LowManaException, NotEnoughManaException {
+    public void checkGreatHeal() throws UnitIsDeadException, LowManaException, NotEnoughManaException, DeadAfterAttackException {
         Soldier sld = new Soldier("Soldiaer", 100, 10);
         Healer hl = new Healer("Healer", 100, 10, 100, 20);
 
